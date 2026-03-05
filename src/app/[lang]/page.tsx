@@ -1,13 +1,17 @@
-import CategorySection from "./components/home/CategorySection";
-import FeaturedSection from "./components/home/FeaturedSection";
-import { getHomeData } from "../lib/getHomeData";
+import CategorySection from "../components/home/CategorySection";
+import FeaturedSection from "../components/home/FeaturedSection";
+import { getHomeData } from "../../lib/getHomeData";
 
 export const revalidate = 60;
 
-export default async function HomePage() {
+interface Props {
+  params: { lang: string };
+}
 
+export default async function LanguageHomePage({ params }: Props) {
+  const { lang } = await params;
 
-  const { featured, trending, categoryData, lang } = await getHomeData();
+  const { featured, trending, categoryData } = await getHomeData(lang);
 
   return (
     <main className="max-w-6xl mx-auto px-4 py-6 mt-12 grid lg:grid-cols-3 gap-8">
